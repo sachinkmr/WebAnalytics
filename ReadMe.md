@@ -1,0 +1,1 @@
+This is read me file for web analytics project

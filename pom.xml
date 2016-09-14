@@ -8,7 +8,6 @@
 	<packaging>jar</packaging>
 
 	<name>analytics</name>
-	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,4 +38,5 @@
 			<version>6.9.10</version>
 		</dependency>
 	</dependencies>
+	<url>https://github.com/sachinkmr/WebAnalytics</url>
 </project>

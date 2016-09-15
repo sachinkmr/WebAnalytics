@@ -1,10 +1,11 @@
 package web.analytics.base;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Suite {
 	private final String suiteName;
-	private TestScenario scenario;
 	private Map<String, String> objectRepo;
 	private String projectName;
 	private String analyticsSheetLocation;
@@ -13,16 +14,14 @@ public class Suite {
 		this.suiteName = suiteName;
 	}
 
+	public List<TestCase> getTestCases() {
+		List<TestCase> testCases = new ArrayList<>();
+		
+		return testCases;
+	}
+
 	public String getSuiteName() {
 		return suiteName;
-	}
-
-	public TestScenario getScenario() {
-		return scenario;
-	}
-
-	public void setScenario(TestScenario scenario) {
-		this.scenario = scenario;
 	}
 
 	public Map<String, String> getObjectRepo() {

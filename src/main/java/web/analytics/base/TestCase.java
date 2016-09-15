@@ -1,5 +1,5 @@
 package web.analytics.base;
 
-public class ObjectRepository {
+public class TestCase {
 
 }

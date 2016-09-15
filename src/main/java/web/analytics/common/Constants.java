@@ -31,8 +31,8 @@ public class Constants {
 		}
 		USER_AGENT = prop.getProperty("user.agent",
 				"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0");
-		USERNAME = prop.getProperty("user.agent", "");
-		PASSWORD = prop.getProperty("user.agent", "");
-		BROWSER = prop.getProperty("user.agent", "FireFox");
+		USERNAME = prop.getProperty("username", "");
+		PASSWORD = prop.getProperty("password", "");
+		BROWSER = prop.getProperty("browser", "FireFox");
 	}
 }

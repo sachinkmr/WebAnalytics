@@ -8,44 +8,25 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import web.analytics.helper.HelperUtils;
 
-public class Controller {
-	private final String filePath;
-	private HSSFWorkbook workbook;
-	protected static final Logger logger = LoggerFactory.getLogger(Controller.class);
+public class Controller implements AutoCloseable {
+	private XSSFWorkbook workbook;
+	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+	private DataFormatter df = new DataFormatter();
 
 	public Controller(String filePath) {
-		this.filePath = filePath;
-	}
-
-	public List<Suite> getSuites() {
-		List<Suite> suites = new ArrayList<>();
 		try {
 			FileInputStream f = new FileInputStream(new File(filePath));
-			workbook = new HSSFWorkbook(f);
-			HSSFSheet sheet = workbook.getSheetAt(0);
-			Iterator<Row> rowIterator = sheet.rowIterator();
-			DataFormatter df = new DataFormatter();
-			while (rowIterator.hasNext()) {
-				Row row = rowIterator.next();
-				String name = df.formatCellValue(row.getCell(1));
-				if (null != name && !name.isEmpty() && df.formatCellValue(row.getCell(3)).equalsIgnoreCase("yes")) {
-					Suite suite = new Suite(name);
-					suite.setObjectRepo(HelperUtils.getObjectRepository(df.formatCellValue(row.getCell(2))));
-					suite.setProjectName(df.formatCellValue(row.getCell(4)));
-					suite.setAnalyticsSheetLocation(df.formatCellValue(row.getCell(5)));
-					suite.setScenario(getScenario());
-				}
-			}
-
+			workbook = new XSSFWorkbook(f);
+			f.close();
 		} catch (FileNotFoundException e) {
 			logger.error("Unable to find Controller file", e);
 			System.exit(1);
@@ -53,18 +34,56 @@ public class Controller {
 			logger.error("Unable to read Controller file", e);
 			System.exit(1);
 		}
+	}
+
+	/**
+	 * 
+	 * asdasdasdasdas asd asd
+	 **/
+	public List<Suite> getSuites() {
+		List<Suite> suites = new ArrayList<>();
+		XSSFSheet sheet = workbook.getSheet("Suites");
+		Iterator<Row> rowIterator = sheet.rowIterator();
+		while (rowIterator.hasNext()) {
+			Row row = rowIterator.next();
+			String name = df.formatCellValue(row.getCell(1));
+			if (null != name && !name.isEmpty()
+					&& !df.formatCellValue(row.getCell(1)).equalsIgnoreCase("Project_Suite_Name")
+					&& df.formatCellValue(row.getCell(2)).equalsIgnoreCase("yes")) {
+				Suite suite = new Suite(name);
+				suite.setTestCases(getTestCases(suite));
+				suites.add(suite);
+			}
+		}
 		return suites;
 	}
 
-	private TestScenario getScenario() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TestCase> getTestCases(Suite suite) {
+		List<TestCase> testCases = new ArrayList<>();
+		XSSFSheet sheet = workbook.getSheet(suite.getSuiteName());
+		Iterator<Row> rowIterator = sheet.rowIterator();
+		while (rowIterator.hasNext()) {
+			Row row = rowIterator.next();
+			String testCaseName = df.formatCellValue(row.getCell(1));
+			// adding test cases name and oother properttiees
+			if (null != testCaseName && !testCaseName.isEmpty()
+					&& !df.formatCellValue(row.getCell(1)).equalsIgnoreCase("Test_Scenario_Name")
+					&& df.formatCellValue(row.getCell(3)).equalsIgnoreCase("yes")) {
+				TestCase testCase = new TestCase(testCaseName);
+				testCase.setObjectRepo(HelperUtils.getObjectRepository(df.formatCellValue(row.getCell(2))));
+				testCase.setProjectName(df.formatCellValue(row.getCell(4)));
+				testCase.setAnalyticsSheetLocation(df.formatCellValue(row.getCell(5)));
+				testCases.add(testCase);
+
+			}
+		}
+		return testCases;
 	}
 
 	public void close() {
 		try {
 			workbook.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Unable to close Controller file", e);
 		}
 	}

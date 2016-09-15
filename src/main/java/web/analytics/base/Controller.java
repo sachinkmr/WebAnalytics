@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import web.analytics.helper.HelperUtils;
 
-public class Controller {
+public class Controller implements AutoCloseable {
 	private XSSFWorkbook workbook;
 	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 	private DataFormatter df = new DataFormatter();
@@ -51,6 +51,7 @@ public class Controller {
 					&& !df.formatCellValue(row.getCell(1)).equalsIgnoreCase("Project_Suite_Name")
 					&& df.formatCellValue(row.getCell(2)).equalsIgnoreCase("yes")) {
 				Suite suite = new Suite(name);
+				suite.setTestCases(getTestCases(suite));
 				suites.add(suite);
 			}
 		}
@@ -72,7 +73,9 @@ public class Controller {
 				testCase.setObjectRepo(HelperUtils.getObjectRepository(df.formatCellValue(row.getCell(2))));
 				testCase.setProjectName(df.formatCellValue(row.getCell(4)));
 				testCase.setAnalyticsSheetLocation(df.formatCellValue(row.getCell(5)));
+				testCase.setTestSteps(testCaseName);
 				testCases.add(testCase);
+
 			}
 		}
 		return testCases;
@@ -81,7 +84,7 @@ public class Controller {
 	public void close() {
 		try {
 			workbook.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Unable to close Controller file", e);
 		}
 	}

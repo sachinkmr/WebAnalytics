@@ -6,7 +6,7 @@ public class TestStep {
 	private String action;
 	private String pageName;
 	private String objectLocator;
-	private boolean onError;
+	private String onError;
 	private String data;
 
 	public String getStepNumber() {
@@ -50,10 +50,18 @@ public class TestStep {
 	}
 
 	public boolean isOnError() {
-		return onError;
+
+		if (onError.equalsIgnoreCase("continue"))
+
+			return true;
+
+		else
+
+			return false;
+
 	}
 
-	public void setOnError(boolean onError) {
+	public void setOnError(String onError) {
 		this.onError = onError;
 	}
 

@@ -36,12 +36,13 @@
 			<artifactId>selenium-java</artifactId>
 			<version>3.0.0-beta3</version>
 		</dependency>
+
 		<dependency>
 			<groupId>net.lightbody.bmp</groupId>
 			<artifactId>browsermob-core</artifactId>
 			<version>2.1.2</version>
-			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>

@@ -50,15 +50,16 @@ public class Controller {
 			if (null != name && !name.isEmpty()
 					&& !df.formatCellValue(row.getCell(1)).equalsIgnoreCase("Project_Suite_Name")
 					&& df.formatCellValue(row.getCell(2)).equalsIgnoreCase("yes")) {
-				suites.add(getSuite(name));
+				Suite suite = new Suite(name);
+				suites.add(suite);
 			}
 		}
 		return suites;
 	}
 
-	public Suite getSuite(String name) {
-		Suite suite = new Suite(name);
-		XSSFSheet sheet = workbook.getSheet(name);
+	public List<TestCase> getTestCases(Suite suite) {
+		List<TestCase> testCases = new ArrayList<>();
+		XSSFSheet sheet = workbook.getSheet(suite.getSuiteName());
 		Iterator<Row> rowIterator = sheet.rowIterator();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
@@ -67,12 +68,14 @@ public class Controller {
 			if (null != testCaseName && !testCaseName.isEmpty()
 					&& !df.formatCellValue(row.getCell(1)).equalsIgnoreCase("Test_Scenario_Name")
 					&& df.formatCellValue(row.getCell(3)).equalsIgnoreCase("yes")) {
-				suite.setObjectRepo(HelperUtils.getObjectRepository(df.formatCellValue(row.getCell(2))));
-				suite.setProjectName(df.formatCellValue(row.getCell(4)));
-				suite.setAnalyticsSheetLocation(df.formatCellValue(row.getCell(5)));
+				TestCase testCase = new TestCase(testCaseName);
+				testCase.setObjectRepo(HelperUtils.getObjectRepository(df.formatCellValue(row.getCell(2))));
+				testCase.setProjectName(df.formatCellValue(row.getCell(4)));
+				testCase.setAnalyticsSheetLocation(df.formatCellValue(row.getCell(5)));
+				testCases.add(testCase);
 			}
 		}
-		return suite;
+		return testCases;
 	}
 
 	public void close() {

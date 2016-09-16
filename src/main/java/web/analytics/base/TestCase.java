@@ -16,6 +16,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import web.analytics.common.AnalyticsData;
+
 public class TestCase {
 	private String testCaseName;
 	private Map<String, String> objectRepo;
@@ -23,9 +25,10 @@ public class TestCase {
 	private String analyticsSheetLocation;
 	private List<TestStep> testSteps = null;
 	private static final Logger logger = LoggerFactory.getLogger(TestCase.class);
+	private List<AnalyticsData> analyticsDataList;
 
-	public void setTestSteps(String testCaseName) {
-		testSteps = new ArrayList<TestStep>();
+	private void setTestSteps(String testCaseName) {
+		testSteps = new ArrayList<>();
 		DataFormatter df = new DataFormatter();
 		try {
 			FileInputStream f = new FileInputStream(new File("input/TestCases/" + testCaseName + ".xlsx"));
@@ -66,6 +69,7 @@ public class TestCase {
 
 	public TestCase(String testCaseName) {
 		this.testCaseName = testCaseName;
+		this.setTestSteps(testCaseName);
 	}
 
 	public String getTestCaseName() {
@@ -96,8 +100,41 @@ public class TestCase {
 		return analyticsSheetLocation;
 	}
 
-	public void setAnalyticsSheetLocation(String analyticsSheetLocation) {
-		this.analyticsSheetLocation = analyticsSheetLocation;
+	public void setAnalyticsSheetLocation(String analyticsSheetName) {
+		this.analyticsSheetLocation = "input/AnalyticsSheet/" + analyticsSheetName + ".xlsx";
+		readAnalyticsSheet(analyticsSheetLocation);
 	}
 
+	public void readAnalyticsSheet(String analyticsSheetLocation) {
+		DataFormatter df = new DataFormatter();
+		analyticsDataList = new ArrayList<>();
+		try {
+			FileInputStream f = new FileInputStream(new File(analyticsSheetLocation));
+			XSSFWorkbook workbook = new XSSFWorkbook(f);
+			f.close();
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
+				String anaLyticsObjectName = df.formatCellValue(sheet.getRow(i).getCell(1));
+				if (null != anaLyticsObjectName && !anaLyticsObjectName.isEmpty()) {
+					AnalyticsData analyticsData = new AnalyticsData(anaLyticsObjectName);
+					for (int j = 3; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
+						String AnalyticsDataKey = df.formatCellValue(sheet.getRow(i).getCell(j));
+						if (null != AnalyticsDataKey && !AnalyticsDataKey.isEmpty()) {
+							analyticsData.setData(AnalyticsDataKey, df.formatCellValue(sheet.getRow(i + 1).getCell(j)));
+						}
+					}
+					analyticsDataList.add(analyticsData);
+					i++;
+				}
+			}
+			workbook.close();
+		} catch (FileNotFoundException e) {
+			logger.error("Unable to find Test Case file", e);
+			System.exit(1);
+		} catch (IOException e) {
+			logger.error("Unable to read Test Case file or unable to close Test Case file", e);
+			System.exit(1);
+		}
+
+	}
 }

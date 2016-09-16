@@ -9,22 +9,22 @@ import java.io.InputStreamReader;
  */
 public class ProcessKiller {
 
-    private static final String TASKLIST = "tasklist";
-    private static final String KILL = "taskkill /F /IM ";
+	private static final String TASKLIST = "tasklist";
+	private static final String KILL = "taskkill /F /IM ";
 
-    public static boolean isProcessRunning(String serviceName) throws Exception {
-	Process p = Runtime.getRuntime().exec(TASKLIST);
-	BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-	String line;
-	while ((line = reader.readLine()) != null) {
-	    if (line.contains(serviceName)) {
-		return true;
-	    }
+	public static boolean isProcessRunning(String serviceName) throws Exception {
+		Process p = Runtime.getRuntime().exec(TASKLIST);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			if (line.contains(serviceName)) {
+				return true;
+			}
+		}
+		return false;
 	}
-	return false;
-    }
 
-    public static void killProcess(String serviceName) throws Exception {
-	Runtime.getRuntime().exec(KILL + serviceName);
-    }
+	public static void killProcess(String serviceName) throws Exception {
+		Runtime.getRuntime().exec(KILL + serviceName);
+	}
 }

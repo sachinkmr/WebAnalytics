@@ -3,6 +3,7 @@ package web.analytics.helper;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -28,5 +29,9 @@ public class HelperUtils {
 			map.put(key, prop.getProperty(key));
 		}
 		return map;
+	}
+
+	public static String getUniqueString() {
+		return new Date().toString();
 	}
 }

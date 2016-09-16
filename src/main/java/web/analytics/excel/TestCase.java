@@ -99,7 +99,7 @@ public class TestCase {
 	}
 
 	public void setAnalyticsSheetLocation(String analyticsSheetName) {
-		this.analyticsSheetLocation = "input/AnalyticsSheet/" + analyticsSheetName + ".xlsx";
+		this.analyticsSheetLocation = "input/AnalyticsSheets/" + analyticsSheetName + ".xlsx";
 		readAnalyticsSheet(analyticsSheetLocation);
 	}
 
@@ -112,7 +112,10 @@ public class TestCase {
 			f.close();
 			XSSFSheet sheet = workbook.getSheetAt(0);
 			for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
-				String anaLyticsObjectName = df.formatCellValue(sheet.getRow(i).getCell(1));
+				String anaLyticsObjectName = null;
+				Row row = sheet.getRow(i);
+				if (null != row)
+					anaLyticsObjectName = df.formatCellValue(row.getCell(1));
 				if (null != anaLyticsObjectName && !anaLyticsObjectName.isEmpty()) {
 					AnalyticsData analyticsData = new AnalyticsData(anaLyticsObjectName);
 					for (int j = 3; j < sheet.getRow(i).getPhysicalNumberOfCells(); j++) {
@@ -132,7 +135,55 @@ public class TestCase {
 		} catch (IOException e) {
 			logger.error("Unable to read Analytics file or unable to close Analytics file", e);
 			System.exit(1);
+		} catch (Exception e) {
+			logger.error("Unable to read Analytics file or unable to close Analytics file", e);
+			System.exit(1);
 		}
-
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((testCaseName == null) ? 0 : testCaseName.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TestCase other = (TestCase) obj;
+		if (testCaseName == null) {
+			if (other.testCaseName != null)
+				return false;
+		} else if (!testCaseName.equals(other.testCaseName))
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return testCaseName;
+	}
+
 }

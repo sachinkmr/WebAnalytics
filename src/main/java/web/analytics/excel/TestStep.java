@@ -50,15 +50,7 @@ public class TestStep {
 	}
 
 	public boolean isOnError() {
-
-		if (onError.equalsIgnoreCase("continue"))
-
-			return true;
-
-		else
-
-			return false;
-
+		return onError.equalsIgnoreCase("continue");
 	}
 
 	public void setOnError(String onError) {
@@ -71,6 +63,36 @@ public class TestStep {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((stepNumber == null) ? 0 : stepNumber.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TestStep other = (TestStep) obj;
+		if (stepNumber == null) {
+			if (other.stepNumber != null)
+				return false;
+		} else if (!stepNumber.equals(other.stepNumber))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return stepNumber;
 	}
 
 }

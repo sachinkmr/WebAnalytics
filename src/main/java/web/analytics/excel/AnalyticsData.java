@@ -14,7 +14,6 @@ public class AnalyticsData {
 	}
 
 	public void setData(String key, String value) {
-
 		this.data.put(key, value);
 	}
 

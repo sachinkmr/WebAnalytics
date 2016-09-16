@@ -37,8 +37,10 @@ public class Controller implements AutoCloseable {
 	}
 
 	/**
+	 * Method to read all suites and their data from excel files
 	 * 
-	 * asdasdasdasdas asd asd
+	 * @return List<Suite> returns list of suites
+	 * 
 	 **/
 	public List<Suite> getSuites() {
 		List<Suite> suites = new ArrayList<>();
@@ -58,6 +60,15 @@ public class Controller implements AutoCloseable {
 		return suites;
 	}
 
+	/**
+	 * Method to read all test cases and their data
+	 * 
+	 * @param suite
+	 *            name of the suite.
+	 * 
+	 * @return List<TestCase> returns list of test cases for test suite
+	 * 
+	 **/
 	public List<TestCase> getTestCases(Suite suite) {
 		List<TestCase> testCases = new ArrayList<>();
 		XSSFSheet sheet = workbook.getSheet(suite.getSuiteName());
@@ -80,6 +91,11 @@ public class Controller implements AutoCloseable {
 		return testCases;
 	}
 
+	/**
+	 * Method to close controller resources.
+	 * 
+	 * 
+	 **/
 	@Override
 	public void close() {
 		try {

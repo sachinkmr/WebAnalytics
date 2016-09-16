@@ -1,4 +1,4 @@
-package web.analytics.common;
+package web.analytics.excel;
 
 import java.util.HashMap;
 import java.util.Map;

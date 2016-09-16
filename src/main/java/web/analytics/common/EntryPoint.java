@@ -2,8 +2,8 @@ package web.analytics.common;
 
 import java.util.List;
 
-import web.analytics.base.Controller;
-import web.analytics.base.Suite;
+import web.analytics.excel.Controller;
+import web.analytics.excel.Suite;
 
 public class EntryPoint {
 

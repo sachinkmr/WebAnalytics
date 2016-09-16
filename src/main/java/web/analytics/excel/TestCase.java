@@ -1,4 +1,4 @@
-package web.analytics.base;
+package web.analytics.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,8 +15,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import web.analytics.common.AnalyticsData;
 
 public class TestCase {
 	private String testCaseName;

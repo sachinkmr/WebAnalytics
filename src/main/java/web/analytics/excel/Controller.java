@@ -1,4 +1,4 @@
-package web.analytics.base;
+package web.analytics.excel;
 
 import java.io.File;
 import java.io.FileInputStream;

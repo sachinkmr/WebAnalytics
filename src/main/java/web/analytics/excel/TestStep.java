@@ -1,4 +1,4 @@
-package web.analytics.base;
+package web.analytics.excel;
 
 public class TestStep {
 	private String stepNumber;

@@ -80,6 +80,7 @@ public class Controller implements AutoCloseable {
 		return testCases;
 	}
 
+	@Override
 	public void close() {
 		try {
 			workbook.close();

@@ -127,10 +127,10 @@ public class TestCase {
 			}
 			workbook.close();
 		} catch (FileNotFoundException e) {
-			logger.error("Unable to find Test Case file", e);
+			logger.error("Unable to find Analytics file", e);
 			System.exit(1);
 		} catch (IOException e) {
-			logger.error("Unable to read Test Case file or unable to close Test Case file", e);
+			logger.error("Unable to read Analytics file or unable to close Analytics file", e);
 			System.exit(1);
 		}
 

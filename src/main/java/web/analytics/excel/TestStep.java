@@ -1,98 +1,107 @@
 package web.analytics.excel;
 
 public class TestStep {
-	private String stepNumber;
-	private String testCaseName;
-	private String action;
-	private String pageName;
-	private String objectLocator;
-	private String onError;
-	private String data;
+    private String stepNumber;
+    private String testCaseName;
+    private String action;
+    private String pageName;
+    private String objectLocator;
+    private String onError;
+    private String data;
+    private String status;
 
-	public String getStepNumber() {
-		return stepNumber;
-	}
+    public String getStatus() {
+	return this.status;
+    }
 
-	public void setStepNumber(String stepNumber) {
-		this.stepNumber = stepNumber;
-	}
+    public void setStatus(String status) {
+	this.status = status;
+    }
 
-	public String getTestCaseName() {
-		return testCaseName;
-	}
+    public String getStepNumber() {
+	return stepNumber;
+    }
 
-	public void setTestCaseName(String testCaseName) {
-		this.testCaseName = testCaseName;
-	}
+    public void setStepNumber(String stepNumber) {
+	this.stepNumber = stepNumber;
+    }
 
-	public String getAction() {
-		return action;
-	}
+    public String getTestCaseName() {
+	return testCaseName;
+    }
 
-	public void setAction(String action) {
-		this.action = action;
-	}
+    public void setTestCaseName(String testCaseName) {
+	this.testCaseName = testCaseName;
+    }
 
-	public String getPageName() {
-		return pageName;
-	}
+    public String getAction() {
+	return action;
+    }
 
-	public void setPageName(String pageName) {
-		this.pageName = pageName;
-	}
+    public void setAction(String action) {
+	this.action = action;
+    }
 
-	public String getObjectLocator() {
-		return objectLocator;
-	}
+    public String getPageName() {
+	return pageName;
+    }
 
-	public void setObjectLocator(String objectLocator) {
-		this.objectLocator = objectLocator;
-	}
+    public void setPageName(String pageName) {
+	this.pageName = pageName;
+    }
 
-	public boolean isOnError() {
-		return onError.equalsIgnoreCase("continue");
-	}
+    public String getObjectLocator() {
+	return objectLocator;
+    }
 
-	public void setOnError(String onError) {
-		this.onError = onError;
-	}
+    public void setObjectLocator(String objectLocator) {
+	this.objectLocator = objectLocator;
+    }
 
-	public String getData() {
-		return data;
-	}
+    public boolean onError() {
+	return onError.equalsIgnoreCase("continue");
+    }
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    public void setOnError(String onError) {
+	this.onError = onError;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((stepNumber == null) ? 0 : stepNumber.hashCode());
-		return result;
-	}
+    public String getData() {
+	return data;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TestStep other = (TestStep) obj;
-		if (stepNumber == null) {
-			if (other.stepNumber != null)
-				return false;
-		} else if (!stepNumber.equals(other.stepNumber))
-			return false;
-		return true;
-	}
+    public void setData(String data) {
+	this.data = data;
+    }
 
-	@Override
-	public String toString() {
-		return stepNumber;
-	}
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((stepNumber == null) ? 0 : stepNumber.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	TestStep other = (TestStep) obj;
+	if (stepNumber == null) {
+	    if (other.stepNumber != null)
+		return false;
+	} else if (!stepNumber.equals(other.stepNumber))
+	    return false;
+	return true;
+    }
+
+    @Override
+    public String toString() {
+	return stepNumber;
+    }
 
 }

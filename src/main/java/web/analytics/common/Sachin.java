@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import net.lightbody.bmp.core.har.Har;
-import web.analytics.selenium.DriverBuilder;
+import web.analytics.driver.DriverBuilder;
 
 public class Sachin {
 

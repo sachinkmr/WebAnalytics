@@ -1,4 +1,4 @@
-package web.analytics.selenium;
+package web.analytics.driver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

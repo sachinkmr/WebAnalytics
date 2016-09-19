@@ -106,7 +106,11 @@ public class TestCase {
 		readAnalyticsSheet(analyticsSheetLocation);
 	}
 
-	public void readAnalyticsSheet(String analyticsSheetLocation) {
+	public List<AnalyticsData> getAnalyticsDataList() {
+		return analyticsDataList;
+	}
+
+	private void readAnalyticsSheet(String analyticsSheetLocation) {
 		analyticsDataList = new ArrayList<>();
 		try {
 			FileInputStream f = new FileInputStream(new File(analyticsSheetLocation));

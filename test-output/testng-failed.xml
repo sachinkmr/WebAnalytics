@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Web Analytics Test Suite]">
+  <test name="WebAnalytics">
+    <classes>
+      <class name="web.analytics.test.TestNG"/>
+    </classes>
+  </test> <!-- WebAnalytics -->
+  <test name="WebAnalytics(failed)">
+    <classes>
+      <class name="web.analytics.test.TestNG">
+        <methods>
+          <include name="tearDown"/>
+          <include name="setUp"/>
+          <include name="executeTestCases"/>
+        </methods>
+      </class> <!-- web.analytics.test.TestNG -->
+    </classes>
+  </test> <!-- WebAnalytics(failed) -->
+</suite> <!-- Failed suite [Web Analytics Test Suite] -->

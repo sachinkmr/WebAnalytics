@@ -1,5 +1,7 @@
 package web.analytics.selenium;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -10,8 +12,13 @@ import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.lightbody.bmp.core.har.HarEntry;
+import net.lightbody.bmp.core.har.HarRequest;
+import web.analytics.common.Constants;
+import web.analytics.driver.DriverBuilder;
 import web.analytics.excel.TestStatus;
 import web.analytics.excel.TestStep;
+import web.analytics.helper.HelperUtils;
 
 public class Keywords {
 	protected static final Logger logger = LoggerFactory.getLogger(Keywords.class);
@@ -325,16 +332,35 @@ public class Keywords {
 		}
 	}
 
-	@KeywordInfo(description = "", data = "", objectName = "")
-	public void verifypageEvent(WebDriver driver, TestStep testStep) {
+	@KeywordInfo(description = "This is used to verify analytics event", data = "", objectName = "Analytics event name provided in sheet")
+	public void verifyEvent(DriverBuilder builder, TestStep testStep) {
 		if (stopOnError) {
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
 		}
 		try {
-
+			this.waitForPageLoad(builder.getDriver(), testStep);
+			for (HarEntry entry : builder.getProxy().getHar().getLog().getEntries()) {
+				HarRequest request = entry.getRequest();
+				if (request.getUrl().contains(Constants.URL_PARAMETER_1)
+						&& request.getUrl().contains(Constants.URL_PARAMETER_2)) {
+					Map<String, String> query = HelperUtils.getQueryParameterMap(request.getQueryString());
+					if (query.keySet().containsAll(Constants.QUERY_MAP.keySet())) {
+						Map<String, String> map = HelperUtils
+								.getAnalyticsData(testStep.getAction(), testStep.getTestCase()).getData();
+						for (String key : map.keySet()) {
+							if (!(query.containsKey(key) && map.get(key).equals(query.get(key)))) {
+								builder.getProxy().newHar(HelperUtils.getUniqueString());
+								throw new Exception(
+										"Key or value not matched. Key: " + key + "\nValue: " + query.get(key));
+							}
+						}
+					}
+				}
+			}
 			testStep.setStatus(TestStatus.PASS);
+			builder.getProxy().newHar(HelperUtils.getUniqueString());
 		} catch (Exception ex) {
 			testStep.setStatus(TestStatus.FAIL);
 			testStep.setEx(ex.getLocalizedMessage());
@@ -343,22 +369,23 @@ public class Keywords {
 		}
 	}
 
-	@KeywordInfo(description = "", data = "", objectName = "")
-	public void verifyClickEvent(WebDriver driver, TestStep testStep) {
-		if (stopOnError) {
-			testStep.setStatus(TestStatus.SKIP);
-			logger.error("Skipping test step as stop execution on error is set to true");
-			return;
-		}
-		try {
-
-			testStep.setStatus(TestStatus.PASS);
-		} catch (Exception ex) {
-			testStep.setStatus(TestStatus.FAIL);
-			testStep.setEx(ex.getLocalizedMessage());
-			logger.error("Error in executing test step. ", ex);
-			stopOnError = testStep.onError();
-		}
-	}
+	// @KeywordInfo(description = "", data = "", objectName = "")
+	// public void verifyClickEvent(WebDriver driver, TestStep testStep) {
+	// if (stopOnError) {
+	// testStep.setStatus(TestStatus.SKIP);
+	// logger.error("Skipping test step as stop execution on error is set to
+	// true");
+	// return;
+	// }
+	// try {
+	//
+	// testStep.setStatus(TestStatus.PASS);
+	// } catch (Exception ex) {
+	// testStep.setStatus(TestStatus.FAIL);
+	// testStep.setEx(ex.getLocalizedMessage());
+	// logger.error("Error in executing test step. ", ex);
+	// stopOnError = testStep.onError();
+	// }
+	// }
 
 }

@@ -4,13 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import web.analytics.driver.DriverBuilder;
 import web.analytics.excel.TestStep;
 
 public class TestStepExecutor {
 	Keywords key = new Keywords();
 	protected static final Logger logger = LoggerFactory.getLogger(TestStepExecutor.class);
 
-	public void executeTestStep(WebDriver driver, TestStep testStep) {
+	public void executeTestStep(DriverBuilder builder, TestStep testStep) {
+		WebDriver driver = builder.getDriver();
 		switch (testStep.getAction().toUpperCase()) {
 		case "LAUNCH":
 			key.launch(driver, testStep);
@@ -24,8 +26,8 @@ public class TestStepExecutor {
 		case "ENTER":
 			key.enter(driver, testStep);
 			break;
-		case "VERIFYCLICKEVENT":
-			key.verifyClickEvent(driver, testStep);
+		case "VERIFYEVENT":
+			key.verifyEvent(builder, testStep);
 			break;
 		case "SELECT":
 			key.select(driver, testStep);
@@ -53,9 +55,6 @@ public class TestStepExecutor {
 			break;
 		case "MOUSEHOVER":
 			key.mouseHover(driver, testStep);
-			break;
-		case "VERIFYPAGEEVENT":
-			key.verifypageEvent(driver, testStep);
 			break;
 		default:
 			try {

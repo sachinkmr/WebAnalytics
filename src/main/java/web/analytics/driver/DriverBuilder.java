@@ -34,6 +34,10 @@ public class DriverBuilder implements AutoCloseable {
 		System.setProperty("webdriver.chrome.driver", "input/servers/chromedriver.exe");
 	}
 
+	public WebDriver getDriver() {
+		return driver;
+	}
+
 	public DriverBuilder() {
 		proxy = new BrowserMobProxyServer();
 		proxy.start(0);

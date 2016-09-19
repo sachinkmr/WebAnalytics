@@ -1,4 +1,4 @@
-package web.analytics.repoter;
+package web.analytics.reporter;
 
 import java.lang.reflect.Method;
 

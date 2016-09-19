@@ -1,4 +1,4 @@
-package web.analytics.repoter;
+package web.analytics.reporter;
 
 import java.io.File;
 import java.io.IOException;

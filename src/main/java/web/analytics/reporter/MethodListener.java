@@ -1,4 +1,4 @@
-package web.analytics.repoter;
+package web.analytics.reporter;
 
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;

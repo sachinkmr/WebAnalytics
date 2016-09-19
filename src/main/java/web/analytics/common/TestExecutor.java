@@ -18,7 +18,7 @@ import web.analytics.excel.Controller;
 import web.analytics.excel.Suite;
 import web.analytics.excel.TestCase;
 import web.analytics.excel.TestStep;
-import web.analytics.repoter.ComplexReportFactory;
+import web.analytics.reporter.ComplexReportFactory;
 import web.analytics.selenium.TestStepExecutor;
 
 public class TestExecutor {

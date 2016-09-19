@@ -14,12 +14,13 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestCase {
 	private String testCaseName;
-	private Map<String, String> objectRepo;
+	private Map<String, By> objectRepo;
 	private String projectName;
 	private String analyticsSheetLocation;
 	private List<TestStep> testSteps = null;
@@ -80,11 +81,11 @@ public class TestCase {
 		this.testCaseName = testCaseName;
 	}
 
-	public Map<String, String> getObjectRepo() {
+	public Map<String, By> getObjectRepo() {
 		return objectRepo;
 	}
 
-	public void setObjectRepo(Map<String, String> objectRepo) {
+	public void setObjectRepo(Map<String, By> objectRepo) {
 		this.objectRepo = objectRepo;
 	}
 
@@ -145,28 +146,6 @@ public class TestCase {
 				}
 			}
 
-			// for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
-			// String anaLyticsObjectName = null;
-			// Row row = sheet.getRow(i);
-			// if (null != row)
-			// anaLyticsObjectName = df.formatCellValue(row.getCell(1));
-			// if (null != anaLyticsObjectName &&
-			// !anaLyticsObjectName.isEmpty()) {
-			// AnalyticsData analyticsData = new
-			// AnalyticsData(anaLyticsObjectName);
-			// for (int j = 3; j < sheet.getRow(i).getPhysicalNumberOfCells();
-			// j++) {
-			// String AnalyticsDataKey =
-			// df.formatCellValue(sheet.getRow(i).getCell(j));
-			// if (null != AnalyticsDataKey && !AnalyticsDataKey.isEmpty()) {
-			// analyticsData.setData(AnalyticsDataKey,
-			// df.formatCellValue(sheet.getRow(i + 1).getCell(j)));
-			// }
-			// }
-			// analyticsDataList.add(analyticsData);
-			// i++;
-			// }
-			// }
 			workbook.close();
 		} catch (FileNotFoundException e) {
 			logger.error("Unable to find Analytics file", e);

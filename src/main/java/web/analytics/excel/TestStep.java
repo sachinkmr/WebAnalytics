@@ -8,13 +8,22 @@ public class TestStep {
 	private String objectLocator;
 	private String onError;
 	private String data;
-	private String status;
+	private TestStatus status;
+	private String ex;
 
-	public String getStatus() {
+	public String getEx() {
+		return ex;
+	}
+
+	public void setEx(String ex) {
+		this.ex = ex;
+	}
+
+	public TestStatus getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(TestStatus status) {
 		this.status = status;
 	}
 

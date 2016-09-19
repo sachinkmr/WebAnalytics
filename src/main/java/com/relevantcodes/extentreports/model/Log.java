@@ -15,48 +15,73 @@ import java.util.Date;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class Log implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 889252425952501333L;
-	private Date timestamp;
-	private LogStatus logStatus;
-	private String stepName;
-	private String details;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 889252425952501333L;
+    private Date timestamp;
+    private LogStatus logStatus;
+    private String stepName;
+    private String tcid = "";
+    private String action = "";
+    private String object = "";
+    private String data = "";
+    private String details = "";
 
-	public Date getTimestamp() {
-		return timestamp;
-	}
+    public String getTcid() {
+	return this.tcid;
+    }
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
+    public String getAction() {
+	return this.action;
+    }
 
-	public void setLogStatus(LogStatus logStatus) {
-		this.logStatus = logStatus;
-	}
+    public String getObject() {
+	return this.object;
+    }
 
-	public LogStatus getLogStatus() {
-		return logStatus;
-	}
+    public String getData() {
+	return this.data;
+    }
 
-	public void setStepName(String stepName) {
-		this.stepName = stepName;
-	}
+    public Date getTimestamp() {
+	return timestamp;
+    }
 
-	public String getStepName() {
-		return stepName;
-	}
+    public void setTimestamp(Date timestamp) {
+	this.timestamp = timestamp;
+    }
 
-	public void setDetails(String details) {
-		this.details = details;
-	}
+    public void setLogStatus(LogStatus logStatus) {
+	this.logStatus = logStatus;
+    }
 
-	public String getDetails() {
-		return details;
-	}
+    public LogStatus getLogStatus() {
+	return logStatus;
+    }
 
-	public Log() {
-		timestamp = Calendar.getInstance().getTime();
-	}
+    public void setStepName(String stepName) {
+	this.stepName = stepName;
+    }
+
+    public String getStepName() {
+	return stepName;
+    }
+
+    public void setDetails(String details) {
+	String arr[] = details.split("###");
+	this.tcid = arr[0];
+	this.action = arr[1];
+	this.object = arr[2];
+	this.data = arr[3];
+	this.details = arr[4] == null ? "" : arr[4];
+    }
+
+    public String getDetails() {
+	return details;
+    }
+
+    public Log() {
+	timestamp = Calendar.getInstance().getTime();
+    }
 }

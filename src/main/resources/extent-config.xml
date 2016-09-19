@@ -14,10 +14,10 @@
 		<protocol>https</protocol>
 
 		<!-- title of the document -->
-		<documentTitle>SEOBOX Automation Report</documentTitle>
+		<documentTitle>Web Analytics Report</documentTitle>
 
 		<!-- report name - displayed at top-nav -->
-		<reportName>Website SEO and Performance Report</reportName>
+		<reportName>Web Analytics Report</reportName>
 
 		<!-- report headline - displayed at top-nav, after reportHeadline -->
 		<reportHeadline></reportHeadline>

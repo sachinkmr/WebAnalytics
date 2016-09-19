@@ -31,7 +31,7 @@
 		
 		<link href='${protocol}://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
-		<link href='https://cdn.rawgit.com/sachinkmr/Content/9d4e20a4b4dca506559ab5c5191e5a068f778b8d/SEOBOX/css/extent.css' type='text/css' rel='stylesheet' />	
+		<link href='https://cdn.rawgit.com/sachinkmr/Content/c743d66d2677c69baa4de84da0f3b38242ff09be/WebAnalytics/css/extent.css' type='text/css' rel='stylesheet' />	
 			
 		<style>
 			<#if report.configurationMap??>
@@ -47,10 +47,6 @@
 	
 	<body class='extent default ${theme} hide-overflow' onload="_updateCurrentStage(-1)">
 		<header>
-			<div class='logo-container left'>
-				<img src="https://cdn.rawgit.com/sachinkmr/Content/master/SEOBOX/Images/logo.png" alt='SEOBOX' title="SEOBOX">
-				<a href='#' data-activates='slide-out' class='button-collapse hide-on-large-only'><i class='mdi-navigation-apps'></i></a>
-			</div>
 			<div class="blue darken-2 report-info">
 				<div class='report-name'><#if report.configurationMap??>${report.configurationMap["reportName"]}</#if></div> <div class='report-headline'><#if report.configurationMap??>${report.configurationMap["reportHeadline"]}</#if></div>				
 			</div>			
@@ -369,22 +365,28 @@
 														<thead>
 															<tr>
 																<th>${resourceBundle.getString("tests.test.log.th.status")}</th>
-																<th>${resourceBundle.getString("tests.test.log.th.timestamp")}</th>
-																<#if (test.logList[0].stepName)??>
-																	<th>StepInfo</th>
-																</#if>
+																<th>${resourceBundle.getString("tests.test.log.th.tcid")}</th>
+																<th>${resourceBundle.getString("tests.test.log.th.action")}</th>
+																<th>${resourceBundle.getString("tests.test.log.th.object")}</th>
+																<th>${resourceBundle.getString("tests.test.log.th.data")}</th>
 																<th>${resourceBundle.getString("tests.test.log.th.details")}</th>
+																<#if (test.logList[0].stepName)??>
+																	<th>StepError</th>
+																</#if>																
 															</tr>
 														</thead>
 														<tbody>
 															<#list test.logList as log>
 																<tr>
 																	<td class='status ${log.logStatus}' title='${log.logStatus}' alt='${log.logStatus}'><i class='${Icon.getIcon(log.logStatus)}'></i></td>
-																	<td class='timestamp'>${log.timestamp?datetime?string(timeFormat)}</td>
+																	<td class='tcid'>${log.tcid}</td>
+																	<td class='action'>${log.action}</td>
+																	<td class='object'>${log.object}</td>
+																	<td class='data'>${log.data}</td>																	
+																	<td class='step-details'>${log.details}</td>
 																	<#if test.logList[0].stepName?? && log.stepName??>
 																		<td class='step-name'>${log.stepName}</td>
 																	</#if>
-																	<td class='step-details'>${log.details}</td>
 																</tr>
 															</#list>
 														</tbody>

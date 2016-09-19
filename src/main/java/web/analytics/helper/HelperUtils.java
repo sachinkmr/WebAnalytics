@@ -3,12 +3,17 @@ package web.analytics.helper;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +43,18 @@ public class HelperUtils {
 		return map;
 	}
 
+	public static String getResourceFile(String fileName) {
+		File file = null;
+		try {
+			String str = IOUtils.toString(HelperUtils.class.getClassLoader().getResourceAsStream(fileName));
+			file = new File(System.getProperty("user.dir"), fileName);
+			FileUtils.write(file, str, "utf-8");
+		} catch (IOException e) {
+			logger.error("Error in file reading.", e);
+		}
+		return file.getAbsolutePath();
+	}
+
 	private static By getLocator(String property) {
 		String arr[] = property.split("=");
 		try {
@@ -63,7 +80,12 @@ public class HelperUtils {
 	}
 
 	public static String getUniqueString() {
-		return new Date().toString();
+		DateFormat df = new SimpleDateFormat("dd-MMMM-yyyy");
+		DateFormat df1 = new SimpleDateFormat("hh-mm-ss-SSaa");
+		Calendar calobj = Calendar.getInstance();
+		String time = df1.format(calobj.getTime());
+		String date = df.format(calobj.getTime());
+		return date + "_" + time;
 	}
 
 	public static Map<String, String> getQueryParameterMap(List<HarNameValuePair> queryString) {
@@ -81,5 +103,17 @@ public class HelperUtils {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Method to get current time.
+	 *
+	 * @return Date date object of current time
+	 *
+	 **/
+	public static Date getTime(long millis) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(millis);
+		return calendar.getTime();
 	}
 }

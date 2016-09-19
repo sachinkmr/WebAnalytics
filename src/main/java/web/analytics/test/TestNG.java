@@ -30,15 +30,15 @@ public class TestNG {
 				testCases.add(testCase);
 			}
 		}
-		Object[][] obj = new TestCase[testCases.size()][];
+		Object[][] obj = new Object[testCases.size()][];
 		for (int i = 0; i < testCases.size(); i++) {
-			obj[i] = new Object[] { testCases.get(i), "" };
+			obj[i] = new Object[] { testCases.get(i), testCases.get(i).getTestCaseName() };
 		}
 		return obj;
 	}
 
 	@Test(dataProvider = "TestCases")
-	public void executeTestCases(TestCase testCase) {
+	public void executeTestCases(TestCase testCase, Object ob) {
 		System.out.println(testCase.getTestCaseName());
 	}
 

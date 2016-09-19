@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="SEOBOX">
+	<test name="Automation Test">
+		<!-- <class name="sachin.seobox.seo.test.SiteLevel" /> -->
+		<classes>
+			<class name="sachin.seobox.seo.test.TestInitializer" />
+			<class name="sachin.seobox.seo.test.SiteLevel" />
+			<class name="sachin.seobox.seo.SEOConfig" />
+			<class name="sachin.seobox.seo.test.LinkLevel" />
+			<class name="sachin.seobox.seo.test.PageLevel" />
+		</classes>
+	</test>
+</suite>

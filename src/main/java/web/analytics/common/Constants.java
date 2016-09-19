@@ -20,7 +20,8 @@ public class Constants {
 	public static final String URL_PARAMETER_2;
 	protected static final Logger logger = LoggerFactory.getLogger(Constants.class);
 	public static final Map<String, String> QUERY_MAP = new HashMap<>();
-
+	public static String REPORT_PATH;
+	public static final String REPORT_NAME;
 	static {
 		Properties prop = new Properties();
 		try {
@@ -42,6 +43,7 @@ public class Constants {
 		URL_PARAMETER_1 = prop.getProperty("url.parameter1");
 		URL_PARAMETER_2 = prop.getProperty("url.parameter2");
 
+		REPORT_NAME = prop.getProperty("report.name", "Web Analytics Report");
 		if (null != prop.getProperty("query.string.parameter1.key")
 				&& !prop.getProperty("query.string.parameter1.key").isEmpty()) {
 			QUERY_MAP.put(prop.getProperty("query.string.parameter1.key"),

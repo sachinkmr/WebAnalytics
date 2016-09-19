@@ -3,7 +3,7 @@
 <suite name="Web Analytics Test Suite">
 	<test name="WebAnalytics">
 		<classes>
-			<class name="web.analytics.test.TestNG" />
+			<class name="web.analytics.common.TestExecutor" />
 		</classes>
 	</test>
 </suite>

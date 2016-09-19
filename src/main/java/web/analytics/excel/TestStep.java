@@ -60,7 +60,7 @@ public class TestStep {
 	}
 
 	public boolean onError() {
-		return onError.equalsIgnoreCase("continue");
+		return !onError.equalsIgnoreCase("continue");
 	}
 
 	public void setOnError(String onError) {

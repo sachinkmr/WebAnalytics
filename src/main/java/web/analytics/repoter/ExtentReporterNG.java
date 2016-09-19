@@ -52,8 +52,7 @@ public class ExtentReporterNG implements IReporter {
 		ExtentTest test;
 		if (tests.size() > 0) {
 			for (ITestResult result : tests.getAllResults()) {
-				test = ComplexReportFactory.getTest(result.getMethod().getMethodName(),
-						result.getMethod().getRealClass().getCanonicalName(), result.getMethod().getDescription());
+				test = ComplexReportFactory.getTest(result.getMethod().getMethodName());
 				test.setDescription("<b>Test Case Description: </b>" + result.getMethod().getDescription());
 				test.setStartedTime(getTime(result.getStartMillis()));
 				test.setEndedTime(getTime(result.getEndMillis()));

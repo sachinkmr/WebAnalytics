@@ -69,7 +69,7 @@ public class Constants {
 			QUERY_MAP.put(prop.getProperty("query.string.parameter5.key"),
 					prop.getProperty("query.string.parameter5.value"));
 		}
-		System.out.println("asdas");
+
 	}
 
 }

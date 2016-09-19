@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public class TestCase {
 	private String testCaseName;
+	private String suiteName;
 	private Map<String, By> objectRepo;
 	private String projectName;
 	private String analyticsSheetLocation;
@@ -27,6 +28,21 @@ public class TestCase {
 	private static final Logger logger = LoggerFactory.getLogger(TestCase.class);
 	private List<AnalyticsData> analyticsDataList;
 	private DataFormatter df = new DataFormatter();
+
+	/**
+	 * @return the suiteName
+	 */
+	public String getSuiteName() {
+		return suiteName;
+	}
+
+	/**
+	 * @param suiteName
+	 *            the suiteName to set
+	 */
+	public void setSuiteName(String suiteName) {
+		this.suiteName = suiteName;
+	}
 
 	private void setTestSteps(String testCaseName) {
 		testSteps = new ArrayList<>();

@@ -84,6 +84,7 @@ public class Controller implements AutoCloseable {
 				testCase.setObjectRepo(HelperUtils.getObjectRepository(df.formatCellValue(row.getCell(2))));
 				testCase.setProjectName(df.formatCellValue(row.getCell(4)));
 				testCase.setAnalyticsSheetLocation(df.formatCellValue(row.getCell(5)));
+				testCase.setSuiteName(suite.getSuiteName());
 				testCases.add(testCase);
 
 			}

@@ -14,7 +14,7 @@ import web.analytics.helper.HelperUtils;
 
 public class ComplexReportFactory {
 
-	private static ExtentReports reporter;
+	public static ExtentReports reporter;
 	public static Map<Long, String> threadToExtentTestMap = new HashMap<>();
 	public static Map<String, ExtentTest> nameToTestMap = new HashMap<>();
 

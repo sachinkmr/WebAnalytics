@@ -18,9 +18,12 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.relevantcodes.extentreports.LogStatus;
+
 import net.lightbody.bmp.core.har.HarNameValuePair;
 import web.analytics.excel.AnalyticsData;
 import web.analytics.excel.TestCase;
+import web.analytics.excel.TestStep;
 
 public class HelperUtils {
 	protected static final Logger logger = LoggerFactory.getLogger(HelperUtils.class);
@@ -115,5 +118,18 @@ public class HelperUtils {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(millis);
 		return calendar.getTime();
+	}
+
+	public static LogStatus getLogStatus(TestStep step) {
+		switch (step.getStatus().name()) {
+		case "PASS":
+			return LogStatus.PASS;
+		case "FAIL":
+			return LogStatus.FAIL;
+		case "SKIP":
+			return LogStatus.SKIP;
+		default:
+			return LogStatus.UNKNOWN;
+		}
 	}
 }

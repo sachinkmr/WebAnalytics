@@ -1,6 +1,7 @@
 package web.analytics.driver;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.binary.Base64;
@@ -19,6 +20,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.filters.RequestFilter;
+import net.lightbody.bmp.proxy.CaptureType;
 import net.lightbody.bmp.util.HttpMessageContents;
 import net.lightbody.bmp.util.HttpMessageInfo;
 import web.analytics.common.Constants;
@@ -40,6 +42,9 @@ public class DriverBuilder implements AutoCloseable {
 
 	public DriverBuilder() {
 		proxy = new BrowserMobProxyServer();
+		proxy.setHostNameResolver(ClientUtil.createDnsJavaResolver());
+		proxy.setHostNameResolver(ClientUtil.createNativeCacheManipulatingResolver());
+		proxy.setTrustAllServers(true);
 		proxy.start(0);
 		proxy.addRequestFilter(new RequestFilter() {
 			@Override
@@ -54,13 +59,22 @@ public class DriverBuilder implements AutoCloseable {
 			}
 		});
 		proxy.newHar(HelperUtils.getUniqueString());
-
+		HashSet<CaptureType> enable = new HashSet<CaptureType>();
+		enable.add(CaptureType.REQUEST_HEADERS);
+		enable.add(CaptureType.REQUEST_CONTENT);
+		enable.add(CaptureType.RESPONSE_HEADERS);
+		proxy.enableHarCaptureTypes(enable);
+		HashSet<CaptureType> disable = new HashSet<CaptureType>();
+		disable.add(CaptureType.REQUEST_COOKIES);
+		disable.add(CaptureType.RESPONSE_COOKIES);
+		proxy.disableHarCaptureTypes(disable);
 	}
 
 	public WebDriver getChromeDriver() {
 		ChromeOptions options = new ChromeOptions();
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		capabilities.setJavascriptEnabled(true);
+		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		capabilities.setCapability(CapabilityType.PROXY, ClientUtil.createSeleniumProxy(proxy));
 		capabilities.setCapability("chrome.switches", Arrays.asList("--ignore-certificate-errors"));
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -72,6 +86,7 @@ public class DriverBuilder implements AutoCloseable {
 
 	public WebDriver getFireFoxDriver() {
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		capabilities.setCapability(CapabilityType.PROXY, ClientUtil.createSeleniumProxy(proxy));
 		capabilities.setJavascriptEnabled(true);
 		capabilities.setCapability("takesScreenshot", true);
@@ -103,7 +118,11 @@ public class DriverBuilder implements AutoCloseable {
 
 	@Override
 	public void close() {
-		proxy.stop();
+		if (null != driver) {
+			driver.close();
+		}
+		if (null != proxy)
+			proxy.stop();
 		killChromeService();
 
 	}

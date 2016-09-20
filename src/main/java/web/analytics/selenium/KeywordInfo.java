@@ -14,10 +14,10 @@ import java.lang.annotation.Target;
 
 public @interface KeywordInfo {
 
-	String description() default "";
+	String description() default "..";
 
-	String data() default "";
+	String data() default "..";
 
-	String objectName() default "";
+	String objectName() default "..";
 
 }

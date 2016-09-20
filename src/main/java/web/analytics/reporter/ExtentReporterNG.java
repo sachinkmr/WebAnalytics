@@ -15,19 +15,18 @@ import web.analytics.common.Constants;
 
 public class ExtentReporterNG implements IReporter {
 
-    @Override
-    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
-	try {
-	    Thread.sleep(2000);
-	    ComplexReportFactory.closeReport();
-	    File file = new File(Constants.REPORT_PATH);
-	    Document doc = Jsoup.parse(file, "utf-8");
-	    doc.select("div.report-headline").first().text("Report: " + Constants.REPORT_NAME);
-	    FileUtils.write(file, doc.toString(), "utf-8");
-	} catch (IOException | InterruptedException e) {
-	    System.out.println("Unable to read report");
+	@Override
+	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
+		try {
+			ComplexReportFactory.closeReport();
+			File file = new File(Constants.REPORT_PATH);
+			Document doc = Jsoup.parse(file, "utf-8");
+			doc.select("div.report-headline").first().text("Report: " + Constants.REPORT_NAME);
+			FileUtils.write(file, doc.toString(), "utf-8");
+		} catch (IOException e) {
+			System.out.println("Unable to read report");
+		}
+		System.out.println("Report Generated: " + Constants.REPORT_PATH);
 	}
-	System.out.println("Report Generated: " + Constants.REPORT_PATH);
-    }
 
 }

@@ -714,6 +714,7 @@
 				<a href='#!' class='modal-action modal-close waves-effect waves-green btn'>${resourceBundle.getString("modal.button.save")}</a> 
 			</div> 
 		</div>
+		
 		<!-- /filter for step status 
 		<script src='${protocol}://cdn.rawgit.com/anshooarora/extentreports/6032d73243ba4fe4fb8769eb9c315d4fdf16fe68/cdn/extent.js' type='text/javascript'></script>
 		
@@ -732,5 +733,9 @@
 				${report.configurationMap["scripts"]}
 			</#if>
 		</script>
+		<footer id='report-footer'>
+			<p>Created By <a href='https://github.com/ayushpruthi'>Ayush Pruthi</a> & <a href='https://github.com/sachinkmr'>Sachin Kumar</a>. Reports uses <a href='http://extentreports.relevantcodes.com/'>Extent Reports</a>.
+			</p>
+		</footer>
 	</body>
 </html>

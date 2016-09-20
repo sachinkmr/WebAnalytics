@@ -38,6 +38,9 @@ public class TestExecutor {
 		TestStepExecutor executor = new TestStepExecutor();
 		try {
 			for (Suite suite : suites) {
+				System.out.println("-------------------------------------------------------------- ");
+				System.out.println("Executing Test Suite: " + suite.getSuiteName());
+				System.out.println("-------------------------------------------------------------- ");
 				for (TestCase testCase : suite.getTestCases()) {
 					testCases.add(testCase);
 					System.out.println("Executing Test Case: " + testCase.getTestCaseName());
@@ -47,6 +50,7 @@ public class TestExecutor {
 					}
 					System.out.println("-------------------------------------------------------------- ");
 				}
+				System.out.println("\n\n");
 			}
 		} catch (Exception ex) {
 			logger.error("Error :", ex);

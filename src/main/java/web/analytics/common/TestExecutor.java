@@ -45,14 +45,14 @@ public class TestExecutor {
 				for (TestCase testCase : suite.getTestCases()) {
 					testCases.add(testCase);
 					Keywords key = new Keywords();
-					System.out.println("Executing Test Case: " + testCase.getTestCaseName());
+					System.out.println("  Executing Test Case: " + testCase.getTestCaseName());
 					for (TestStep step : testCase.getTestSteps()) {
-						System.out.println(" - Executing Test Step: " + step.getStepNumber());
+						System.out.println("   - Executing Test Step: " + step.getStepNumber());
 						executor.executeTestStep(builder, step, key);
 					}
 					System.out.println("-------------------------------------------------------------- ");
 				}
-				System.out.println("\n\n");
+				System.out.println("\n");
 			}
 		} catch (Exception ex) {
 			logger.error("Error :", ex);

@@ -31,7 +31,7 @@
 		
 		<link href='${protocol}://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
-		<link href='https://cdn.rawgit.com/sachinkmr/Content/c743d66d2677c69baa4de84da0f3b38242ff09be/WebAnalytics/css/extent.css' type='text/css' rel='stylesheet' />	
+		<link href='https://cdn.rawgit.com/sachinkmr/Content/ff5f0dfe283aab8991b0783624ecc4b6c1c95446/WebAnalytics/css/extent.css' type='text/css' rel='stylesheet' />	
 			
 		<style>
 			<#if report.configurationMap??>
@@ -659,7 +659,9 @@
 				</div>
 			</#if>
 			<!-- /testrunner logs -->
-			
+			<footer id='report-footer'>
+				Created By <a href='https://github.com/ayushpruthi'>Ayush Pruthi</a> & <a href='https://github.com/sachinkmr'>Sachin Kumar</a>. Reports uses <a href='http://extentreports.relevantcodes.com/'>Extent Reports</a>.
+			</footer>
 		</div>
 		<!-- /container -->
 		
@@ -727,15 +729,13 @@
 		
 		<script src='https://cdn.rawgit.com/sachinkmr/Content/ab0f4299b133bfa234cec0b1e0ac08a692a7640a/SEOBOX/js/extent.js' type='text/javascript'></script>
 		<script>		
-			
+			if($('.system-view>div>div.card-panel').css('height')>$('.category-summary-view>div>div.card-panel').css('height')){
+				$('.category-summary-view>div >div.card-panel').css('height',$('.system-view>div> div.card-panel').css('height'));
+			}
 			
 			<#if report.configurationMap??>
 				${report.configurationMap["scripts"]}
 			</#if>
-		</script>
-		<footer id='report-footer'>
-			<p>Created By <a href='https://github.com/ayushpruthi'>Ayush Pruthi</a> & <a href='https://github.com/sachinkmr'>Sachin Kumar</a>. Reports uses <a href='http://extentreports.relevantcodes.com/'>Extent Reports</a>.
-			</p>
-		</footer>
+		</script>		
 	</body>
 </html>

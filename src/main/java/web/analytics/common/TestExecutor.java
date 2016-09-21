@@ -21,6 +21,7 @@ import web.analytics.excel.Suite;
 import web.analytics.excel.TestCase;
 import web.analytics.excel.TestStep;
 import web.analytics.reporter.ComplexReportFactory;
+import web.analytics.selenium.Keywords;
 import web.analytics.selenium.TestStepExecutor;
 
 public class TestExecutor {
@@ -43,10 +44,11 @@ public class TestExecutor {
 				System.out.println("-------------------------------------------------------------- ");
 				for (TestCase testCase : suite.getTestCases()) {
 					testCases.add(testCase);
+					Keywords key = new Keywords();
 					System.out.println("Executing Test Case: " + testCase.getTestCaseName());
 					for (TestStep step : testCase.getTestSteps()) {
 						System.out.println(" - Executing Test Step: " + step.getStepNumber());
-						executor.executeTestStep(builder, step);
+						executor.executeTestStep(builder, step, key);
 					}
 					System.out.println("-------------------------------------------------------------- ");
 				}

@@ -8,10 +8,9 @@ import web.analytics.driver.DriverBuilder;
 import web.analytics.excel.TestStep;
 
 public class TestStepExecutor {
-	private Keywords key = new Keywords();
 	protected static final Logger logger = LoggerFactory.getLogger(TestStepExecutor.class);
 
-	public void executeTestStep(DriverBuilder builder, TestStep testStep) {
+	public void executeTestStep(DriverBuilder builder, TestStep testStep, Keywords key) {
 		WebDriver driver = builder.getDriver();
 		switch (testStep.getAction().toUpperCase()) {
 		case "LAUNCH":

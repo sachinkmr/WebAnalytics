@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="log-path">Logs</Property>
+	</Properties>	
+	<Appenders>
+		<Console name="console-log" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+		</Console>	
+		<RollingFile name="file-log" fileName="${log-path}/log4j.log" filePattern="${log-path}/log4j-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="log4j2" level="debug" additivity="false">
+			<appender-ref ref="file-log" level="warn"/>
+			<appender-ref ref="console-log" level="error"/>
+		</Logger>
+		<Root level="warn" additivity="false">
+			<AppenderRef ref="file-log"/>
+		</Root>
+	</Loggers>
+</Configuration>
+

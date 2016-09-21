@@ -24,7 +24,7 @@ import web.analytics.helper.HelperUtils;
 
 public class Keywords {
 	protected static final Logger logger = LoggerFactory.getLogger(Keywords.class);
-	boolean stopOnError = false;
+	public boolean stopOnError = false;
 	WebDriverWait wait;
 
 	@KeywordInfo(description = "This Keyword is used to launch browser and opens web page", data = "web page url", objectName = "..")

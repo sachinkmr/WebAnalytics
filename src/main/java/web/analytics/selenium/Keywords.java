@@ -29,8 +29,9 @@ public class Keywords {
 
 	@KeywordInfo(description = "This Keyword is used to launch browser and opens web page", data = "web page url", objectName = "..")
 	public void launch(WebDriver driver, TestStep testStep) {
-		wait = new WebDriverWait(driver, 10);
+		wait = new WebDriverWait(driver, 30);
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -50,6 +51,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to click on web Element", data = "..", objectName = "Web Element Locator name form object repository")
 	public void click(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -70,6 +72,7 @@ public class Keywords {
 	@KeywordInfo(description = "This Keyword is used to submit form data", data = "..", objectName = "Web Element Locator name form object repository")
 	public void submit(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -90,6 +93,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to enter text in text field or text area", data = "text to be entered", objectName = "Web Element Locator name form object repository")
 	public void enter(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -113,6 +117,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to select a value from drop down", data = "text to be selected", objectName = "Web Element Locator name form object repository")
 	public void select(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -140,6 +145,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to wait for page to load completly.", data = "..", objectName = "..")
 	public void waitForPageLoad(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -166,6 +172,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to close the browser current tab/windows", data = "..", objectName = "..")
 	public void close(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -184,6 +191,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to delete cookies for current session", data = "..", objectName = "..")
 	public void deleteCookies(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -202,6 +210,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to reload the page", data = "..", objectName = "..")
 	public void refresh(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -220,6 +229,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to douple click on web element", data = "..", objectName = "Web Element Locator name form object repository")
 	public void doubleClick(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -242,6 +252,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to select check box if not selected already", data = "..", objectName = "Web Element Locator name form object repository")
 	public void clickCheckBox(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -261,33 +272,10 @@ public class Keywords {
 		}
 	}
 
-	// @KeywordInfo(description = "This method is used to select radio box",
-	// data = "", objectName = "Web Element Locator name form object
-	// repository")
-	// public void selectRadioButton(WebDriver driver, TestStep testStep) {
-	// if (stopOnError) {
-	// testStep.setStatus(TestStatus.SKIP);
-	// logger.error("Skipping test step as stop execution on error is set to
-	// true");
-	// return;
-	// }
-	// try {
-	// WebElement element = driver
-	// .findElement(testStep.getTestCase().getObjectRepo().get(testStep.getObjectLocator()));
-	// if (!element.isSelected())
-	// element.click();
-	// testStep.setStatus(TestStatus.PASS);
-	// } catch (Exception ex) {
-	// testStep.setStatus(TestStatus.FAIL);
-	// testStep.setEx(ex.getLocalizedMessage());
-	// logger.error("Error in executing test step. ", ex);
-	// stopOnError = testStep.onError();
-	// }
-	// }
-
 	@KeywordInfo(description = "This is used to clear text field or text area", data = "..", objectName = "Web Element Locator name form object repository")
 	public void clear(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -308,6 +296,7 @@ public class Keywords {
 	@KeywordInfo(description = "This places mouse on web element", data = "..", objectName = "Web Element Locator name form object repository")
 	public void mouseHover(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -329,6 +318,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to wait for given time", data = "wait time in seconds", objectName = "Web Element Locator name form object repository")
 	public void wait(WebDriver driver, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -347,6 +337,7 @@ public class Keywords {
 	@KeywordInfo(description = "This is used to verify analytics event", data = "..", objectName = "Analytics event name provided in sheet")
 	public void verifyEvent(DriverBuilder builder, TestStep testStep) {
 		if (stopOnError) {
+			stopOnError = testStep.onError();
 			testStep.setStatus(TestStatus.SKIP);
 			logger.error("Skipping test step as stop execution on error is set to true");
 			return;
@@ -383,24 +374,4 @@ public class Keywords {
 		}
 		builder.getProxy().newHar(HelperUtils.getUniqueString());
 	}
-
-	// @KeywordInfo(description = "", data = "", objectName = "")
-	// public void verifyClickEvent(WebDriver driver, TestStep testStep) {
-	// if (stopOnError) {
-	// testStep.setStatus(TestStatus.SKIP);
-	// logger.error("Skipping test step as stop execution on error is set to
-	// true");
-	// return;
-	// }
-	// try {
-	//
-	// testStep.setStatus(TestStatus.PASS);
-	// } catch (Exception ex) {
-	// testStep.setStatus(TestStatus.FAIL);
-	// testStep.setEx(ex.getLocalizedMessage());
-	// logger.error("Error in executing test step. ", ex);
-	// stopOnError = testStep.onError();
-	// }
-	// }
-
 }

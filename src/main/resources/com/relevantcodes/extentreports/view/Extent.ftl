@@ -660,7 +660,7 @@
 			</#if>
 			<!-- /testrunner logs -->
 			<footer id='report-footer'>
-				Created By <a href='https://github.com/ayushpruthi'>Ayush Pruthi</a> & <a href='https://github.com/sachinkmr'>Sachin Kumar</a>. Reports uses <a href='http://extentreports.relevantcodes.com/'>Extent Reports</a>.
+				Created By <a href='https://github.com/ayushpruthi'>Ayush Pruthi</a> & <a href='https://github.com/sachinkmr'>Sachin Kumar</a>. Report uses <a href='http://extentreports.relevantcodes.com/'>Extent Reports</a>.
 			</footer>
 		</div>
 		<!-- /container -->

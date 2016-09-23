@@ -13,7 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import web.analytics.helper.HelperUtils;
+import web.analytics.helpers.HelperUtils;
 import web.analytics.selenium.KeywordInfo;
 import web.analytics.selenium.Keywords;
 

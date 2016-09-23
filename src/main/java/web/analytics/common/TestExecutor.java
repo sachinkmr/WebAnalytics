@@ -16,13 +16,13 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import web.analytics.driver.DriverBuilder;
-import web.analytics.excel.Controller;
-import web.analytics.excel.Suite;
-import web.analytics.excel.TestCase;
-import web.analytics.excel.TestStep;
 import web.analytics.reporter.ComplexReportFactory;
 import web.analytics.selenium.Keywords;
 import web.analytics.selenium.TestStepExecutor;
+import web.analytics.suite.Controller;
+import web.analytics.suite.TestCase;
+import web.analytics.suite.TestStep;
+import web.analytics.suite.TestSuite;
 
 public class TestExecutor {
 	List<TestCase> testCases = new ArrayList<>();
@@ -32,17 +32,17 @@ public class TestExecutor {
 	@BeforeSuite(alwaysRun = true)
 	public void setUp() {
 		Controller controller = new Controller("input/Controller.xlsx");
-		List<Suite> suites = controller.getSuites();
+		List<TestSuite> testSuites = controller.getSuites();
 		controller.close();
 		builder = new DriverBuilder();
 		builder.getChromeDriver();
 		TestStepExecutor executor = new TestStepExecutor();
 		try {
-			for (Suite suite : suites) {
+			for (TestSuite testSuite : testSuites) {
 				System.out.println("-------------------------------------------------------------- ");
-				System.out.println("Executing Test Suite: " + suite.getSuiteName());
+				System.out.println("Executing Test Suite: " + testSuite.getSuiteName());
 				System.out.println("-------------------------------------------------------------- ");
-				for (TestCase testCase : suite.getTestCases()) {
+				for (TestCase testCase : testSuite.getTestCases()) {
 					testCases.add(testCase);
 					Keywords key = new Keywords();
 					System.out.println("  Executing Test Case: " + testCase.getTestCaseName());

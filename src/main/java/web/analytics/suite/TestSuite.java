@@ -1,8 +1,8 @@
-package web.analytics.excel;
+package web.analytics.suite;
 
 import java.util.List;
 
-public class Suite {
+public class TestSuite {
 	private final String suiteName;
 	private List<TestCase> testCases;
 
@@ -14,7 +14,7 @@ public class Suite {
 		this.testCases = testCases;
 	}
 
-	public Suite(String suiteName) {
+	public TestSuite(String suiteName) {
 		this.suiteName = suiteName;
 	}
 
@@ -48,7 +48,7 @@ public class Suite {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Suite other = (Suite) obj;
+		TestSuite other = (TestSuite) obj;
 		if (suiteName == null) {
 			if (other.suiteName != null)
 				return false;

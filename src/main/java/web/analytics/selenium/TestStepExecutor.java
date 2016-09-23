@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import web.analytics.driver.DriverBuilder;
-import web.analytics.excel.TestStep;
+import web.analytics.suite.TestStep;
 
 public class TestStepExecutor {
 	protected static final Logger logger = LoggerFactory.getLogger(TestStepExecutor.class);
@@ -52,6 +52,9 @@ public class TestStepExecutor {
 				break;
 			case "CLEAR":
 				key.clear(driver, testStep);
+				break;
+			case "SAVETEXT":
+				key.saveText(driver, testStep);
 				break;
 			case "WAIT":
 				key.wait(driver, testStep);

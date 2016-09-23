@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.testng.TestNG;
 
-import web.analytics.helper.HelperUtils;
+import web.analytics.helpers.HelperUtils;
 import web.analytics.reporter.ExtentReporterNG;
 
 public class EntryPoint {

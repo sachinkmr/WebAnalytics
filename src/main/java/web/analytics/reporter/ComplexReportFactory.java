@@ -10,7 +10,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.NetworkMode;
 
 import web.analytics.common.Constants;
-import web.analytics.helper.HelperUtils;
+import web.analytics.helpers.HelperUtils;
 
 public class ComplexReportFactory {
 
@@ -31,9 +31,6 @@ public class ComplexReportFactory {
 
 	public synchronized static ExtentReports getExtentReport() {
 		if (reporter == null) {
-			String outputDirectory = new File("output" + File.separator + "Reports").getAbsolutePath();
-			Constants.REPORT_PATH = outputDirectory + File.separator + "Report_" + HelperUtils.getUniqueString()
-					+ ".html";
 			reporter = new ExtentReports(Constants.REPORT_PATH, true, DisplayOrder.OLDEST_FIRST, NetworkMode.ONLINE);
 			reporter.loadConfig(new File(HelperUtils.getResourceFile("extent-config.xml")));
 		}

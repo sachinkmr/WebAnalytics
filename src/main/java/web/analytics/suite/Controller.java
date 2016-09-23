@@ -1,4 +1,4 @@
-package web.analytics.excel;
+package web.analytics.suite;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import web.analytics.helper.HelperUtils;
+import web.analytics.helpers.HelperUtils;
 
 public class Controller implements AutoCloseable {
     private XSSFWorkbook workbook;
@@ -42,8 +42,8 @@ public class Controller implements AutoCloseable {
      * @return List<Suite> returns list of suites
      * 
      **/
-    public List<Suite> getSuites() {
-	List<Suite> suites = new ArrayList<>();
+    public List<TestSuite> getSuites() {
+	List<TestSuite> testSuites = new ArrayList<>();
 	XSSFSheet sheet = workbook.getSheet("Suites");
 	Iterator<Row> rowIterator = sheet.rowIterator();
 	while (rowIterator.hasNext()) {
@@ -52,26 +52,26 @@ public class Controller implements AutoCloseable {
 	    if (null != name && !name.isEmpty()
 		    && !df.formatCellValue(row.getCell(1)).equalsIgnoreCase("Project_Suite_Name")
 		    && df.formatCellValue(row.getCell(2)).equalsIgnoreCase("yes")) {
-		Suite suite = new Suite(name);
-		suite.setTestCases(getTestCases(suite));
-		suites.add(suite);
+		TestSuite testSuite = new TestSuite(name);
+		testSuite.setTestCases(getTestCases(testSuite));
+		testSuites.add(testSuite);
 	    }
 	}
-	return suites;
+	return testSuites;
     }
 
     /**
      * Method to read all test cases and their data
      * 
-     * @param suite
+     * @param testSuite
      *            name of the suite.
      * 
      * @return List<TestCase> returns list of test cases for test suite
      * 
      **/
-    public List<TestCase> getTestCases(Suite suite) {
+    public List<TestCase> getTestCases(TestSuite testSuite) {
 	List<TestCase> testCases = new ArrayList<>();
-	XSSFSheet sheet = workbook.getSheet(suite.getSuiteName());
+	XSSFSheet sheet = workbook.getSheet(testSuite.getSuiteName());
 	Iterator<Row> rowIterator = sheet.rowIterator();
 	while (rowIterator.hasNext()) {
 	    Row row = rowIterator.next();
@@ -84,7 +84,7 @@ public class Controller implements AutoCloseable {
 		testCase.setObjectRepo(HelperUtils.getObjectRepository(df.formatCellValue(row.getCell(2))));
 		testCase.setProjectName(df.formatCellValue(row.getCell(4)));
 		testCase.setAnalyticsSheetLocation(df.formatCellValue(row.getCell(5)));
-		testCase.setSuiteName(suite.getSuiteName());
+		testCase.setSuiteName(testSuite.getSuiteName());
 		testCases.add(testCase);
 	    }
 	}

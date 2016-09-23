@@ -24,7 +24,7 @@ import net.lightbody.bmp.proxy.CaptureType;
 import net.lightbody.bmp.util.HttpMessageContents;
 import net.lightbody.bmp.util.HttpMessageInfo;
 import web.analytics.common.Constants;
-import web.analytics.helper.HelperUtils;
+import web.analytics.helpers.HelperUtils;
 
 public class DriverBuilder implements AutoCloseable {
 	protected static final Logger logger = LoggerFactory.getLogger(DriverBuilder.class);

@@ -282,6 +282,38 @@ public class Keywords {
 		}
 	}
 
+	@KeywordInfo(description = "This is used to wait for a web element to appear on the webpage", data = "Maximum time to wait in seconds", objectName = "Web Element Locator name form object repository")
+	public void waitForElementAppearance(WebDriver driver, TestStep testStep) {
+		executeBeforeKeyword(driver, testStep);
+		try {
+			By property = testStep.getTestCase().getObjectRepo().get(testStep.getObjectLocator());
+			WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(testStep.getData()));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(property));
+			testStep.setStatus(TestStatus.PASS);
+		} catch (Exception ex) {
+			testStep.setStatus(TestStatus.FAIL);
+			testStep.setEx(ex.getLocalizedMessage());
+			logger.error("Error in executing test step. ", ex);
+			stopOnError = testStep.onError();
+		}
+	}
+
+	@KeywordInfo(description = "This is used to wait for a web element to disappear from the webpage", data = "Maximum time to wait in seconds", objectName = "Web Element Locator name form object repository")
+	public void waitForElementDisappearance(WebDriver driver, TestStep testStep) {
+		executeBeforeKeyword(driver, testStep);
+		try {
+			By property = testStep.getTestCase().getObjectRepo().get(testStep.getObjectLocator());
+			WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(testStep.getData()));
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(property));
+			testStep.setStatus(TestStatus.PASS);
+		} catch (Exception ex) {
+			testStep.setStatus(TestStatus.FAIL);
+			testStep.setEx(ex.getLocalizedMessage());
+			logger.error("Error in executing test step. ", ex);
+			stopOnError = testStep.onError();
+		}
+	}
+
 	@KeywordInfo(description = "This is used to verify analytics event", data = "..", objectName = "Analytics event name provided in sheet")
 	public void verifyEvent(DriverBuilder builder, TestStep testStep) {
 		executeBeforeKeyword(builder.getDriver(), testStep);

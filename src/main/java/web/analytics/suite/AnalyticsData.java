@@ -14,6 +14,8 @@ public class AnalyticsData {
     }
 
     public void setData(String key, String value) {
+	if (key.isEmpty() || value.isEmpty())
+	    return;
 	this.data.put(key, value);
     }
 

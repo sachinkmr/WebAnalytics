@@ -25,8 +25,8 @@ import web.analytics.suite.TestStep;
 import web.analytics.suite.TestSuite;
 
 public class TestExecutor {
-    List<TestCase> testCases = new ArrayList<>();
-    DriverBuilder builder;
+    private List<TestCase> testCases = new ArrayList<>();
+    private DriverBuilder builder;
     protected static final Logger logger = LoggerFactory.getLogger(TestExecutor.class);
 
     @BeforeSuite(alwaysRun = true)

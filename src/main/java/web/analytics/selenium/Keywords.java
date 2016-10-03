@@ -1,6 +1,7 @@
 package web.analytics.selenium;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -353,26 +354,18 @@ public class Keywords {
 	    return;
 	try {
 	    boolean fired = false;
-	    Thread.sleep(3000);
-	    this.waitForPageLoad(builder.getDriver(), testStep);
-	    for (HarEntry entry : builder.getProxy().getHar().getLog().getEntries()) {
-		HarRequest request = entry.getRequest();
-		if (request.getUrl().contains(Constants.URL_PARAMETER_1)
-			&& request.getUrl().contains(Constants.URL_PARAMETER_2)) {
-		    Map<String, String> query = HelperUtils.getQueryParameterMap(request.getQueryString());
-		    if (query.entrySet().containsAll(Constants.QUERY_MAP.entrySet())) {
-			Map<String, String> map = HelperUtils
-				.getAnalyticsData(testStep.getObjectLocator(), testStep.getTestCase()).getData();
-			testStep.setData(map.toString());
-			if (query.entrySet().containsAll(map.entrySet())) {
-			    fired = true;
-			    break;
-			}
-		    }
-		}
+	    if (!getEventStatus(builder, testStep)) {
+		fired = getEventStatus(builder, testStep);
+	    } else {
+		fired = true;
 	    }
 	    if (!fired) {
-		throw new Exception("Event not fired. Event: " + testStep.getObjectLocator());
+		// Set<Object> set=getBest
+		Map<String, String> map = HelperUtils
+			.getAnalyticsData(testStep.getObjectLocator(), testStep.getTestCase()).getData();
+		throw new Exception(
+			"Event not fired. Event: " + testStep.getObjectLocator() + "<br/>Best Matched Event Data: "
+				+ HelperUtils.getBestMatchingEvent(new TreeMap<>(map), builder));
 	    }
 	    testStep.setStatus(TestStatus.PASS);
 	} catch (Exception ex) {
@@ -392,5 +385,30 @@ public class Keywords {
 	    return false;
 	}
 	return true;
+    }
+
+    private boolean getEventStatus(DriverBuilder builder, TestStep testStep) {
+	try {
+	    this.waitForPageLoad(builder.getDriver(), testStep);
+	    Thread.sleep(2000);
+	    for (HarEntry entry : builder.getProxy().getHar().getLog().getEntries()) {
+		HarRequest request = entry.getRequest();
+		if (request.getUrl().contains(Constants.URL_PARAMETER_1)
+			&& request.getUrl().contains(Constants.URL_PARAMETER_2)) {
+		    Map<String, String> query = HelperUtils.getQueryParameterMap(request.getQueryString());
+		    if (query.entrySet().containsAll(Constants.QUERY_MAP.entrySet())) {
+			Map<String, String> map = HelperUtils
+				.getAnalyticsData(testStep.getObjectLocator(), testStep.getTestCase()).getData();
+			testStep.setData(map.toString());
+			if (query.entrySet().containsAll(map.entrySet())) {
+			    return true;
+			}
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    logger.debug("Error in event. ", e);
+	}
+	return false;
     }
 }

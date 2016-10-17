@@ -18,33 +18,34 @@ import web.analytics.selenium.KeywordInfo;
 import web.analytics.selenium.Keywords;
 
 public class KeywordList {
-    public static void main(String[] args) {
-	Map<String, KeywordInfo> map = new TreeMap<String, KeywordInfo>();
-	Method[] methods = Keywords.class.getMethods();
-	for (Method method : methods) {
-	    if (method.isAnnotationPresent(KeywordInfo.class)) {
-		Annotation annotation = method.getAnnotation(KeywordInfo.class);
-		KeywordInfo keywordInfo = (KeywordInfo) annotation;
-		map.put(Character.toUpperCase(method.getName().charAt(0)) + method.getName().substring(1), keywordInfo);
-	    }
-	}
-	File file = new File("KeywordsList.html");
-	try {
-	    Document doc = Jsoup.parse(
-		    IOUtils.toString(HelperUtils.class.getClassLoader().getResourceAsStream("KeywordsList.html")),
-		    "utf-8");
-	    Element element = doc.select("table tbody").first();
-	    int i = 1;
-	    for (String key : map.keySet()) {
-		element.append("<tr><td>" + i++ + "</td><td>" + key + "</td><td>" + map.get(key).objectName()
-			+ "</td><td>" + map.get(key).data() + "</td><td>" + map.get(key).description() + "</td></tr>");
-	    }
-	    FileUtils.write(file, doc.toString(), "utf-8");
-	} catch (IOException e) {
-	    System.out.println("Unable to read report");
-	}
-	System.out.println("Keyword List is generated at: " + file.getAbsolutePath());
+	public static void main(String[] args) {
+		Map<String, KeywordInfo> map = new TreeMap<String, KeywordInfo>();
+		Method[] methods = Keywords.class.getMethods();
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(KeywordInfo.class)) {
+				Annotation annotation = method.getAnnotation(KeywordInfo.class);
+				KeywordInfo keywordInfo = (KeywordInfo) annotation;
+				map.put(Character.toUpperCase(method.getName().charAt(0)) + method.getName().substring(1), keywordInfo);
+			}
+		}
+		File file = new File("KeywordsList.html");
+		try {
+			Document doc = Jsoup.parse(
+					IOUtils.toString(HelperUtils.class.getClassLoader().getResourceAsStream("KeywordsList.html")),
+					"UTF-8");
+			Element element = doc.select("table tbody").first();
+			int i = 1;
+			for (String key : map.keySet()) {
+				element.append("<tr><td>" + i++ + "</td><td>" + key + "</td><td>" + map.get(key).objectName()
+						+ "</td><td>" + map.get(key).data() + "</td><td>" + map.get(key).description() + "</td>><td>"
+						+ map.get(key).scope() + "</td></tr>");
+			}
+			FileUtils.write(file, doc.toString(), "utf-8");
+		} catch (IOException e) {
+			System.out.println("Unable to read report");
+		}
+		System.out.println("Keyword List is generated at: " + file.getAbsolutePath());
 
-    }
+	}
 
 }

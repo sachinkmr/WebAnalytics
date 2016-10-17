@@ -29,10 +29,10 @@ public class Controller implements AutoCloseable {
 	    f.close();
 	} catch (FileNotFoundException e) {
 	    logger.error("Unable to find Controller file", e);
-	    System.exit(1);
+	    System.out.println("Error in application: "+ e);
 	} catch (IOException e) {
 	    logger.error("Unable to read Controller file", e);
-	    System.exit(1);
+	    System.out.println("Error in application: "+ e);
 	}
     }
 

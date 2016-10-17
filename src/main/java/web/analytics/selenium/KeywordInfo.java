@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 
 public @interface KeywordInfo {
+	String scope() default "All";
 
 	String description() default "..";
 

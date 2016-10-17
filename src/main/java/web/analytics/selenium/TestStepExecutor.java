@@ -77,9 +77,6 @@ public class TestStepExecutor {
 			case "VERIFYURL":
 				key.verifyURL(driver, testStep);
 				break;
-			case "RELATEDPRODUCTS":
-				key.relatedProducts(driver, testStep);
-				break;
 			case "SAVEELEMENTATTRIBUTEVALUE":
 				key.saveElementAttributeValue(driver, testStep);
 				break;

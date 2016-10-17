@@ -428,27 +428,6 @@ public class Keywords {
 
 	}
 
-	@KeywordInfo(description = "This is used to get all related product's name.", data = "Varibale name to store the names saperated by |", objectName = "Locator containing all anchor(a) tags. (div.c-product-listing__container a.c-product-listing__image-wrap)", scope = "Unilever D2")
-	public void relatedProducts(WebDriver driver, TestStep testStep) {
-		if (!executeBeforeKeyword(driver, testStep))
-			return;
-		try {
-			String names = "";
-			By property = testStep.getTestCase().getObjectRepo().get(testStep.getObjectLocator());
-			wait.until(ExpectedConditions.visibilityOfElementLocated(property));
-			List<WebElement> list = driver.findElements(property);
-			for (WebElement e : list) {
-				names = names + e.getText() + " | ";
-			}
-			testStep.getTestCase().getDataMap().put(testStep.getData(), names.substring(0, names.length() - 2));
-			testStep.setStatus(TestStatus.PASS);
-		} catch (Exception ex) {
-			testStep.setStatus(TestStatus.FAIL);
-			testStep.setEx("<code>" + ex.getLocalizedMessage() + "</code>");
-			logger.error("Error in executing test step. ", ex);
-			stopOnError = testStep.onError();
-		}
-	}
 
 	@KeywordInfo(description = "This is used to get attribute value and stores it in a given variable.", data = "[attribute name=variable name] attribute name to fetch the value, varibale name to store attribute value. thease are without brackets. Attribute name and variable name must separated by '=' respectively.", objectName = "Element locator")
 	public void saveElementAttributeValue(WebDriver driver, TestStep testStep) {
